@@ -16,6 +16,15 @@ def temp_max_min(lat, lon):
     print(call ["daily"] ["temperature_2m_min"])
     print(call ["daily"] ["time"])
 
-temp_max_min(46.2389, 14.3556)
+#temp_max_min(46.2389, 14.3556)
 
 def raz_dne_no(lat, lon):
+    base_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&daily=temperature_2m_max,temperature_2m_min"
+    call = requests.get(base_url).json()
+    razlika = 0
+    for i in range(len(call ["daily"]["time"])):
+        dnevna = call["daily"] ["temperature_2m_max"]
+        nocna = call ["daily"] ["temperature_2m_min"]
+        razlika = dnevna[i] - nocna[i]
+    print(razlika)
+raz_dne_no(46.2389, 14.3556)
